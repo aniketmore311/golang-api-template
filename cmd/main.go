@@ -8,9 +8,11 @@ import (
 )
 
 func main() {
-	r := gin.Default()
-	logger, _ := zap.NewProduction()
+	cfg := zap.NewProductionConfig()
+	cfg.DisableStacktrace = true
+	logger, _ := cfg.Build()
 	zap.ReplaceGlobals(logger)
+	r := gin.Default()
 	r.Use(middleware.TraceIDMiddleware())
 	dc := api.DemoController{}
 	dc.RegisterRoutes(r)

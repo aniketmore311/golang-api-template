@@ -32,7 +32,7 @@ func ErrorAdapter(handler types.HandlerFuncWithErr) gin.HandlerFunc {
 					zap.String("method", method),
 				)
 			} else {
-				c.JSON(500, gin.H{"traceId": traceID, "status": 500, "code": "internal_server_error", "detail": "internal server error"})
+				c.JSON(500, gin.H{"traceId": traceID, "status": 500, "code": internerrors.InternalServerError, "detail": "internal server error"})
 				zap.L().Error(
 					err.Error(),
 					zap.String("traceId", traceID),
